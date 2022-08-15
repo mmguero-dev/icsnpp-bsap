@@ -32,6 +32,7 @@ export {
         id              : conn_id   &log;                   ## The connection's 4-tuple of endpoint addresses/ports.
         num_msg         : count     &log;                   ## Number of function calls in message packet
         type_name       : string    &log;
+        is_orig         : bool      &log;                   ## The message came from the originator/client or the responder/server
         # ## TODO: Add other fields here that you'd like to log.
     };
     global log_bsap_ip_header: event(rec: BSAP_IP_Header);
@@ -178,6 +179,7 @@ event bsap_ip_header(c: connection, is_orig: bool, id: count, Num_Messages: coun
     info$ts  = network_time();
     info$uid = c$uid;
     info$id  = c$id;
+    info$is_orig = is_orig;
     info$num_msg = Num_Messages;
     info$type_name = msg_types[Message_Func];
 
